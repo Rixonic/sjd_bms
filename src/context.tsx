@@ -1,17 +1,50 @@
+// context.tsx
 import React, { useContext, useState, useEffect, ReactNode } from "react";
 
-const DataContext = React.createContext({});
+interface DataContextProps {
+  data: {
+    CHILLER?: {
+      temperatureIn: number;
+      temperatureOut: number;
+    };
+    T1?: {
+      V?: {
+        VIIab: number;
+        VIIbc: number;
+        VIIca: number;
+      };
+      C?: {
+        Ia: number;
+        Ib: number;
+        Ic: number;
+      };
+      PF?: {
+        PFTot: number;
+      };
+      kVa?: {
+        kVaTot: number;
+      };
+    };
+  };
+  isConnected: boolean;
+}
+
+const DataContext = React.createContext<DataContextProps | undefined>(undefined);
 
 interface DataProviderProps {
   children: ReactNode;
 }
 
 export function useData() {
-  return useContext(DataContext);
+  const context = useContext(DataContext);
+  if (!context) {
+    throw new Error("useData must be used within a DataProvider");
+  }
+  return context;
 }
 
 export function DataProvider({ children }: DataProviderProps) {
-  const [data, setData] = useState({});
+  const [data, setData] = useState<DataContextProps["data"]>({});
   const [isConnected, setIsConnected] = useState(false);
 
   const connectWebSocket = () => {
@@ -48,7 +81,8 @@ export function DataProvider({ children }: DataProviderProps) {
     connectWebSocket();
   }, []); // Se ejecuta solo en el montaje inicial
 
-  const value = {
+
+  const value: DataContextProps = {
     data,
     isConnected,
   };
