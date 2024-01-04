@@ -7,6 +7,18 @@ interface DataContextProps {
       temperatureIn: number;
       temperatureOut: number;
     };
+    ALARM_DB?: {
+      
+      Area      :       string
+      E3TimeStamp      :      string
+      FullAlarmSourceName      :      string
+      InTime      :       string
+      Message      :     string
+      Source      : string
+      id: number
+   
+    length : number
+  };
     T1?: {
       V?: {
         VIIab: number;
@@ -48,7 +60,7 @@ export function DataProvider({ children }: DataProviderProps) {
   const [isConnected, setIsConnected] = useState(false);
 
   const connectWebSocket = () => {
-    const socket = new WebSocket('ws://10.0.2.57:1880/ingenieria');
+    const socket = new WebSocket('ws://frank4.com.ar:1880/frank');
 
     socket.addEventListener('open', (event) => {
       console.log('Conexión establecida:', event);
@@ -56,7 +68,7 @@ export function DataProvider({ children }: DataProviderProps) {
     });
 
     socket.addEventListener('message', (event) => {
-      // console.log('Mensaje recibido:', event.data);
+      //console.log('Mensaje recibido:', event.data);
       setData(JSON.parse(event.data));
     });
 
@@ -87,5 +99,37 @@ export function DataProvider({ children }: DataProviderProps) {
     isConnected,
   };
 
-  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
+  return <DataContext.Provider value={value}>
+    
+    { children}</DataContext.Provider>;
 }
+
+
+/*
+msg.payload = {
+    CHILLER: {
+      temperatureIn: 9.75,
+      temperatureOut: 13.75,
+    },
+    T1: {
+      V: {
+            VIIab: 13177.49,
+            VIIbc: 13226.53,
+            VIIca: 13123.78,
+      },
+      C: {
+          Ia: 21.29,
+          Ib: 21.88,
+          Ic: 22.11,
+      },
+      PF: {
+          PFTot: -94.81,
+      },
+      kVa: {
+          kVaTot: 484,
+      }
+    }
+}
+
+return msg;
+*/
