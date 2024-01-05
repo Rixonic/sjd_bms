@@ -17,8 +17,8 @@ interface DataContextProps {
       Source      : string
       id: number
    
-    length : number
-  };
+
+  }[];
     T1?: {
       V?: {
         VIIab: number;

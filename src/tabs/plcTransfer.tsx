@@ -1,8 +1,8 @@
-// src/App.js
-import { useData } from "../context";
-import { Chip, Card, CardHeader, CardBody, Divider } from "@nextui-org/react";
+
+//import { useData } from "../context";
+import { Card, CardHeader, CardBody } from "@nextui-org/react";
 function PlcTransfer() {
-  const { data } = useData();
+  //const { data } = useData();
   //console.log(data.ALARM_DB?.length);
   return (
     <div className="h-fit w-fit">

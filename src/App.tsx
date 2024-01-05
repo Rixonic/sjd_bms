@@ -21,7 +21,7 @@ function App() {
           {isConnected ? "Online" : "Offline"}
         </Chip>
       </header>
-      <div className="flex flex-col justify-evenly pt-8 h-max">
+      <div className="flex flex-col justify-evenly pt-8 h-max ">
         <Tabs aria-label="Options" className="self-center">
           <Tab key="photos" title="Sub-Estacion 1">
             <SubEstacion />
